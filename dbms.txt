@@ -1,0 +1,604 @@
+create table employee67(fname varchar(15)not null,minit char(1),lname varchar(15)not null,ssn varchar(10)primary key,bdate date,address varchar(60),sex char(1),salary number(10,2),super_ssn varchar(10),dno number(10)not null);
+
+desc employee67;
+
+create table department67(dname varchar(25)not null,dnumber number(10)primary key,mgrssn varchar(10)not null,mgrstsrtdate date,foreign key(mgrssn)references employee67(ssn));
+
+desc department67;
+
+create table dept_locations67(dnumber number(10)not null,dlocation varchar(25)not null,foreign key(dnumber)references department67(dnumber));
+
+desc dept_locations67;
+
+create table project67(pname varchar(15)not null,pnumber number(10)primary key,plocation varchar(15),dnum number(10),foreign key(dnum)references department67(dnumber));
+
+desc project67;
+
+create table works_on67(essn varchar(10)not null,pno number(10)not null,hours number(3,1),foreign key(essn) references employee67(ssn),foreign key(pno)references project67(pnumber));
+
+desc works_on67;
+
+create table dependent67(essn varchar(10),dependentname varchar(35),sex char(1),bdate date,relationship varchar(25),foreign key(essn)references employee67(ssn));
+desc dependent67;
+
+insert into employee67 values('darshan','B','anandh','e01','09-Jan-1965','731 Fondren,Houston,TX','M',30000,'e02',5);
+insert into employee67 values('mohan','T','ram','e02','08-Dec-1955','638 Voss,Houston,TX','M',40000,'e08',5);
+insert into employee67 values('Anisha','J','Bhatt','e03','19-Jan-1968','3321 Castle,Spring,TX','F',25000,'e04',4);
+insert into employee67 values('samantha','S','josh','e04','20-Jun-1941','291 Berry,Bellaire,TX','F',43000,'e08',4);
+insert into employee67 values('Ramesh','K','Narayan','e05','15-Sep-1962','975 Fire Oak,Humble,TX','M',38000,'e02',5);
+insert into employee67 values('lisa','A','roy','e06','31-Jul-1972','5631 Rice,Houston,TX','F',25000,'e02',5);
+insert into employee67 values('Ahmed','v','Jabbur','e07','29-Mar-1969','980 Dallas,Houston,TX','M',25000,'e03',4);
+insert into employee67 values('Jayanth','E','Prasad','e08','10-Nov-1937','450 Stone,Houston,TX','M',55000,NULL,1);
+
+select * from employee67;
+
+insert into department67 values('Headquarters',1,'e06','19-jun-81');
+insert into department67 values('Administrator',4,'e04','01-jan-95');
+insert into department67 values('Research',5,'e02','22-may-88');
+
+select * from department67;
+
+insert into dept_locations67 values(1,'Houston');
+insert into dept_locations67 values(4,'Stafford');
+insert into dept_locations67 values(5,'Bellaire');
+insert into dept_locations67 values(5,'Sugarland');
+insert into dept_locations67 values(5,'Houston');
+
+select * from dept_locations67;
+
+insert into project67 values('Product X',1,'Bellaire',5);
+insert into project67 values('Product Y',2,'Sugarland',5);
+insert into project67 values('Product Z',3,'Houston',5);
+insert into project67 values('Computerization',10,'Stanfford',4);
+insert into project67 values('Reorganization',20,'Huston',1);
+insert into project67 values('Newbenifits',30,'Stanfford',4);
+
+select * from project67;
+
+insert into works_on67 values('e01',1,32.5);
+insert into works_on67 values('e01',2,7.5);
+insert into works_on67 values('e05',3,40.0);
+insert into works_on67 values('e06',1,20.0);
+insert into works_on67 values('e06',2,20.0);
+insert into works_on67 values('e02',2,10.0);
+insert into works_on67 values('e02',3,10.0);
+insert into works_on67 values('e02',10,10.0);
+insert into works_on67 values('e02',20,10.0);
+insert into works_on67 values('e03',30,30.0);
+insert into works_on67 values('e03',10,10.0);
+insert into works_on67 values('e07',10,35.0);
+insert into works_on67 values('e07',30,5.0);
+insert into works_on67 values('e04',30,20.0);
+insert into works_on67 values('e04',20,15.0);
+insert into works_on67 (essn,pno) values('e08',20);
+
+select * from works_on67;
+
+insert into dependent67 values('e02','Anika','F','05-apr-1986','Daughter');
+insert into dependent67 values('e02','Arjun','M','25-oct-1983','Son');
+insert into dependent67 values('e02','Joy','F','03-may-1958','Spouse');
+insert into dependent67 values('e04','Arun','M','28-feb-1942','Spouse');
+insert into dependent67 values('e01','Michel','M','04-jan-1988','Son');
+insert into dependent67 values('e01','Aruna','F','30-dec-1988','Daughter');
+insert into dependent67 values('e01','Elizabeth','F','05-may-1967','Spouse');
+
+select *from dependent67;
+
+update employee67 set salary=50000 where ssn='e01';
+
+                                                                                                                                               
+
+          
+
+delete from employee67 where SSN='e02';
+select *from employee67;
+
+insert into employee67 values('Esha','s','Mogher','e09','20-Nov-1987','1670 Spring,Belliare,TX','F',35000,'e05',4);
+commit;
+delete from employee67 where ssn='e08';
+rollback;
+select *from employee67;
+delete from employee67 where ssn='e01';
+
+LAB PROG-3
+
+alter table dept_locations67 modify dlocation varchar(35);
+desc dept_locations67;
+
+drop table dept_locations67;
+
+rename employee67 to employee_details67;
+desc employee_details67;
+
+LAB PROG-4
+
+select sum(salary),max(salary),min(salary),avg(salary) from employee_details61;
+
+
+
+LAB PROG-2
+create table employee61(fname varchar(15)not null,minit char(1),lname varchar(15)not null,ssn varchar(10)primary key,bdate date,address varchar(60),sex char(1),salary number(10,2),super_ssn varchar(10),dno number(10)not null);
+
+desc employee61;
+
+create table department61(dname varchar(25)not null,dnumber number(10)primary key,mgrssn varchar(10)not null,mgrstsrtdate date,foreign key(mgrssn)references employee61(ssn));
+
+desc department61;
+
+create table dept_locations61(dnumber number(10)not null,dlocation varchar(25)not null,foreign key(dnumber)references department61(dnumber));
+
+desc dept_locations61;
+
+create table project61(pname varchar(15)not null,pnumber number(10)primary key,plocation varchar(15),dnum number(10),foreign key(dnum)references department61(dnumber));
+
+desc project61;
+
+create table works_on61(essn varchar(10)not null,pno number(10)not null,hours number(3,1),foreign key(essn) references employee61(ssn),foreign key(pno)references project61(pnumber));
+
+desc works_on61;
+
+create table dependent61(essn varchar(10),dependentname varchar(35),sex char(1),bdate date,relationship varchar(25),foreign key(essn)references employee61(ssn));
+desc dependent61;
+
+insert into employee61 values('darshan','B','anandh','e01','09-Jan-1965','731 Fondren,Houston,TX','M',30000,'e02',5);
+insert into employee61 values('mohan','T','ram','e02','08-Dec-1955','638 Voss,Houston,TX','M',40000,'e08',5);
+insert into employee61 values('Anisha','J','Bhatt','e03','19-Jan-1968','3321 Castle,Spring,TX','F',25000,'e04',4);
+insert into employee61 values('samantha','S','josh','e04','20-Jun-1941','291 Berry,Bellaire,TX','F',43000,'e08',4);
+insert into employee61 values('Ramesh','K','Narayan','e05','15-Sep-1962','975 Fire Oak,Humble,TX','M',38000,'e02',5);
+insert into employee61 values('lisa','A','roy','e06','31-Jul-1972','5631 Rice,Houston,TX','F',25000,'e02',5);
+insert into employee61 values('Ahmed','v','Jabbur','e07','29-Mar-1969','980 Dallas,Houston,TX','M',25000,'e03',4);
+insert into employee61 values('Jayanth','E','Prasad','e08','10-Nov-1937','450 Stone,Houston,TX','M',55000,NULL,1);
+
+select * from employee61;
+
+insert into department61 values('Headquarters',1,'e06','19-jun-81');
+insert into department61 values('Administrator',4,'e04','01-jan-95');
+insert into department61 values('Research',5,'e02','22-may-88');
+
+select * from department61;
+
+insert into dept_locations61 values(1,'Houston');
+insert into dept_locations61 values(4,'Stafford');
+insert into dept_locations61 values(5,'Bellaire');
+insert into dept_locations61 values(5,'Sugarland');
+insert into dept_locations61 values(5,'Houston');
+
+select * from dept_locations61;
+
+insert into project61 values('Product X',1,'Bellaire',5);
+insert into project61 values('Product Y',2,'Sugarland',5);
+insert into project61 values('Product Z',3,'Houston',5);
+insert into project61 values('Computerization',10,'Stanfford',4);
+insert into project61 values('Reorganization',20,'Huston',1);
+insert into project61 values('Newbenifits',30,'Stanfford',4);
+
+select * from project61;
+
+insert into works_on61 values('e01',1,32.5);
+insert into works_on61 values('e01',2,7.5);
+insert into works_on61 values('e05',3,40.0);
+insert into works_on61 values('e06',1,20.0);
+insert into works_on61 values('e06',2,20.0);
+insert into works_on61 values('e02',2,10.0);
+insert into works_on61 values('e02',3,10.0);
+insert into works_on61 values('e02',10,10.0);
+insert into works_on61 values('e02',20,10.0);
+insert into works_on61 values('e03',30,30.0);
+insert into works_on61 values('e03',10,10.0);
+insert into works_on61 values('e07',10,35.0);
+insert into works_on61 values('e07',30,5.0);
+insert into works_on61 values('e04',30,20.0);
+insert into works_on61 values('e04',20,15.0);
+insert into works_on61 (essn,pno) values('e08',20);
+
+select * from works_on61;
+
+insert into dependent61 values('e02','Anika','F','05-apr-1986','Daughter');
+insert into dependent61 values('e02','Arjun','M','25-oct-1983','Son');
+insert into dependent61 values('e02','Joy','F','03-may-1958','Spouse');
+insert into dependent61 values('e04','Arun','M','28-feb-1942','Spouse');
+insert into dependent61 values('e01','Michel','M','04-jan-1988','Son');
+insert into dependent61 values('e01','Aruna','F','30-dec-1988','Daughter');
+insert into dependent61 values('e01','Elizabeth','F','05-may-1967','Spouse');
+
+select *from dependent61;
+
+update employee61 set salary=50000 where ssn='e01';
+
+select *from employee61;
+
+select *from employee61 where ssn='e08';
+
+delete from employee61 where ssn='e09';
+
+insert into employee61 values('Esha','s','Mogher','e09','20-Nov-1987','1670 Spring,Belliare,TX','F',35000,'e05',4);
+commit;
+delete from employee61 where ssn='e08';
+rollback;
+select *from employee61;
+
+LAB PROG-3
+
+alter table dept_locations61 modify dlocation varchar(35);
+desc dept_locations61;
+
+drop table dept_locations61;
+
+rename employee61 to employee_details61;
+desc employee_details61;
+
+LAB PROG-4
+
+select sum(salary),max(salary),min(salary),avg(salary) from employee_details61;
+
+
+
+
+
+
+
+
+
+
+
+
+create table employee61(fname varchar(15)not null,minit char(1),lname varchar(15)not null,ssn varchar(10)primary key,bdate date,address varchar(60),sex char(1),salary number(10,2),super_ssn varchar(10),dno number(10)not null);
+
+desc employee61;
+
+create table department61(dname varchar(25)not null,dnumber number(10)primary key,mgrssn varchar(10)not null,mgrstsrtdate date,foreign key(mgrssn)references employee61(ssn));
+
+desc department61;
+
+create table dept_locations61(dnumber number(10)not null,dlocation varchar(25)not null,foreign key(dnumber)references department61(dnumber));
+
+desc dept_locations61;
+
+create table project61(pname varchar(15)not null,pnumber number(10)primary key,plocation varchar(15),dnum number(10),foreign key(dnum)references department61(dnumber));
+
+desc project61;
+
+create table works_on61(essn varchar(10)not null,pno number(10)not null,hours number(3,1),foreign key(essn) references employee61(ssn),foreign key(pno)references project61(pnumber));
+
+desc works_on61;
+
+create table dependent61(essn varchar(10),dependentname varchar(35),sex char(1),bdate date,relationship varchar(25),foreign key(essn)references employee61(ssn));
+desc dependent61;
+
+insert into employee61 values('darshan','B','anandh','e01','09-Jan-1965','731 Fondren,Houston,TX','M',30000,'e02',5);
+insert into employee61 values('mohan','T','ram','e02','08-Dec-1955','638 Voss,Houston,TX','M',40000,'e08',5);
+insert into employee61 values('Anisha','J','Bhatt','e03','19-Jan-1968','3321 Castle,Spring,TX','F',25000,'e04',4);
+insert into employee61 values('samantha','S','josh','e04','20-Jun-1941','291 Berry,Bellaire,TX','F',43000,'e08',4);
+insert into employee61 values('Ramesh','K','Narayan','e05','15-Sep-1962','975 Fire Oak,Humble,TX','M',38000,'e02',5);
+insert into employee61 values('lisa','A','roy','e06','31-Jul-1972','5631 Rice,Houston,TX','F',25000,'e02',5);
+insert into employee61 values('Ahmed','v','Jabbur','e07','29-Mar-1969','980 Dallas,Houston,TX','M',25000,'e03',4);
+insert into employee61 values('Jayanth','E','Prasad','e08','10-Nov-1937','450 Stone,Houston,TX','M',55000,NULL,1);
+
+select * from employee61;
+
+insert into department61 values('Headquarters',1,'e06','19-jun-81');
+insert into department61 values('Administrator',4,'e04','01-jan-95');
+insert into department61 values('Research',5,'e02','22-may-88');
+
+select * from department61;
+
+insert into dept_locations61 values(1,'Houston');
+insert into dept_locations61 values(4,'Stafford');
+insert into dept_locations61 values(5,'Bellaire');
+insert into dept_locations61 values(5,'Sugarland');
+insert into dept_locations61 values(5,'Houston');
+
+select * from dept_locations61;
+
+insert into project61 values('Product X',1,'Bellaire',5);
+insert into project61 values('Product Y',2,'Sugarland',5);
+insert into project61 values('Product Z',3,'Houston',5);
+insert into project61 values('Computerization',10,'Stanfford',4);
+insert into project61 values('Reorganization',20,'Huston',1);
+insert into project61 values('Newbenifits',30,'Stanfford',4);
+
+select * from project61;
+
+insert into works_on61 values('e01',1,32.5);
+insert into works_on61 values('e01',2,7.5);
+insert into works_on61 values('e05',3,40.0);
+insert into works_on61 values('e06',1,20.0);
+insert into works_on61 values('e06',2,20.0);
+insert into works_on61 values('e02',2,10.0);
+insert into works_on61 values('e02',3,10.0);
+insert into works_on61 values('e02',10,10.0);
+insert into works_on61 values('e02',20,10.0);
+insert into works_on61 values('e03',30,30.0);
+insert into works_on61 values('e03',10,10.0);
+insert into works_on61 values('e07',10,35.0);
+insert into works_on61 values('e07',30,5.0);
+insert into works_on61 values('e04',30,20.0);
+insert into works_on61 values('e04',20,15.0);
+insert into works_on61 (essn,pno) values('e08',20);
+
+select * from works_on61;
+
+insert into dependent61 values('e02','Anika','F','05-apr-1986','Daughter');
+insert into dependent61 values('e02','Arjun','M','25-oct-1983','Son');
+insert into dependent61 values('e02','Joy','F','03-may-1958','Spouse');
+insert into dependent61 values('e04','Arun','M','28-feb-1942','Spouse');
+insert into dependent61 values('e01','Michel','M','04-jan-1988','Son');
+insert into dependent61 values('e01','Aruna','F','30-dec-1988','Daughter');
+insert into dependent61 values('e01','Elizabeth','F','05-may-1967','Spouse');
+
+select *from dependent61;
+
+update employee61 set salary=50000 where ssn='e01';
+
+select *from employee61;
+
+select *from employee61 where ssn='e08';
+
+delete from employee61 where ssn='e09';
+
+insert into employee61 values('Esha','s','Mogher','e09','20-Nov-1987','1670 Spring,Belliare,TX','F',35000,'e05',4);
+commit;
+delete from employee61 where ssn='e08';
+rollback;
+select *from employee61;
+
+LAB PROG-3
+
+alter table dept_locations61 modify dlocation varchar(35);
+desc dept_locations61;
+
+drop table dept_locations61;
+
+rename employee61 to employee_details61;
+desc employee_details61;
+
+LAB PROG-4
+
+select sum(salary),max(salary),min(salary),avg(salary) from employee_details61;
+
+
+
+
+
+
+
+
+
+
+
+
+create table employee61(fname varchar(15)not null,minit char(1),lname varchar(15)not null,ssn varchar(10)primary key,bdate date,address varchar(60),sex char(1),salary number(10,2),super_ssn varchar(10),dno number(10)not null);
+
+desc employee61;
+
+create table department61(dname varchar(25)not null,dnumber number(10)primary key,mgrssn varchar(10)not null,mgrstsrtdate date,foreign key(mgrssn)references employee61(ssn));
+
+desc department61;
+
+create table dept_locations61(dnumber number(10)not null,dlocation varchar(25)not null,foreign key(dnumber)references department61(dnumber));
+
+desc dept_locations61;
+
+create table project61(pname varchar(15)not null,pnumber number(10)primary key,plocation varchar(15),dnum number(10),foreign key(dnum)references department61(dnumber));
+
+desc project61;
+
+create table works_on61(essn varchar(10)not null,pno number(10)not null,hours number(3,1),foreign key(essn) references employee61(ssn),foreign key(pno)references project61(pnumber));
+
+desc works_on61;
+
+create table dependent61(essn varchar(10),dependentname varchar(35),sex char(1),bdate date,relationship varchar(25),foreign key(essn)references employee61(ssn));
+desc dependent61;
+
+insert into employee61 values('darshan','B','anandh','e01','09-Jan-1965','731 Fondren,Houston,TX','M',30000,'e02',5);
+insert into employee61 values('mohan','T','ram','e02','08-Dec-1955','638 Voss,Houston,TX','M',40000,'e08',5);
+insert into employee61 values('Anisha','J','Bhatt','e03','19-Jan-1968','3321 Castle,Spring,TX','F',25000,'e04',4);
+insert into employee61 values('samantha','S','josh','e04','20-Jun-1941','291 Berry,Bellaire,TX','F',43000,'e08',4);
+insert into employee61 values('Ramesh','K','Narayan','e05','15-Sep-1962','975 Fire Oak,Humble,TX','M',38000,'e02',5);
+insert into employee61 values('lisa','A','roy','e06','31-Jul-1972','5631 Rice,Houston,TX','F',25000,'e02',5);
+insert into employee61 values('Ahmed','v','Jabbur','e07','29-Mar-1969','980 Dallas,Houston,TX','M',25000,'e03',4);
+insert into employee61 values('Jayanth','E','Prasad','e08','10-Nov-1937','450 Stone,Houston,TX','M',55000,NULL,1);
+
+select * from employee61;
+
+insert into department61 values('Headquarters',1,'e06','19-jun-81');
+insert into department61 values('Administrator',4,'e04','01-jan-95');
+insert into department61 values('Research',5,'e02','22-may-88');
+
+select * from department61;
+
+insert into dept_locations61 values(1,'Houston');
+insert into dept_locations61 values(4,'Stafford');
+insert into dept_locations61 values(5,'Bellaire');
+insert into dept_locations61 values(5,'Sugarland');
+insert into dept_locations61 values(5,'Houston');
+
+select * from dept_locations61;
+
+insert into project61 values('Product X',1,'Bellaire',5);
+insert into project61 values('Product Y',2,'Sugarland',5);
+insert into project61 values('Product Z',3,'Houston',5);
+insert into project61 values('Computerization',10,'Stanfford',4);
+insert into project61 values('Reorganization',20,'Huston',1);
+insert into project61 values('Newbenifits',30,'Stanfford',4);
+
+select * from project61;
+
+insert into works_on61 values('e01',1,32.5);
+insert into works_on61 values('e01',2,7.5);
+insert into works_on61 values('e05',3,40.0);
+insert into works_on61 values('e06',1,20.0);
+insert into works_on61 values('e06',2,20.0);
+insert into works_on61 values('e02',2,10.0);
+insert into works_on61 values('e02',3,10.0);
+insert into works_on61 values('e02',10,10.0);
+insert into works_on61 values('e02',20,10.0);
+insert into works_on61 values('e03',30,30.0);
+insert into works_on61 values('e03',10,10.0);
+insert into works_on61 values('e07',10,35.0);
+insert into works_on61 values('e07',30,5.0);
+insert into works_on61 values('e04',30,20.0);
+insert into works_on61 values('e04',20,15.0);
+insert into works_on61 (essn,pno) values('e08',20);
+
+select * from works_on61;
+
+insert into dependent61 values('e02','Anika','F','05-apr-1986','Daughter');
+insert into dependent61 values('e02','Arjun','M','25-oct-1983','Son');
+insert into dependent61 values('e02','Joy','F','03-may-1958','Spouse');
+insert into dependent61 values('e04','Arun','M','28-feb-1942','Spouse');
+insert into dependent61 values('e01','Michel','M','04-jan-1988','Son');
+insert into dependent61 values('e01','Aruna','F','30-dec-1988','Daughter');
+insert into dependent61 values('e01','Elizabeth','F','05-may-1967','Spouse');
+
+select *from dependent61;
+
+update employee61 set salary=50000 where ssn='e01';
+
+select *from employee61;
+
+select *from employee61 where ssn='e08';
+
+delete from employee61 where ssn='e09';
+
+insert into employee61 values('Esha','s','Mogher','e09','20-Nov-1987','1670 Spring,Belliare,TX','F',35000,'e05',4);
+commit;
+delete from employee61 where ssn='e08';
+rollback;
+select *from employee61;
+
+LAB PROG-3
+
+alter table dept_locations61 modify dlocation varchar(35);
+desc dept_locations61;
+
+drop table dept_locations61;
+
+rename employee61 to employee_details61;
+desc employee_details61;
+
+LAB PROG-4
+
+select sum(salary),max(salary),min(salary),avg(salary) from employee_details61;
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table employe49n(fname varchar(15) not null, minit char(1),lname varchar(15) not null, ssn varchar(10) primary key, bdate date, address varchar(50),sex char(1), salary number(10,2),spr_ssn varchar(10),dno number(10) not null);
+
+create  table dept_49n(dname varchar(25) not null, dnumber number(10) primary key, mgr_ssn varchar(10) not null,mgrstartdate date, foreign key(mgr_ssn) references employe49n(ssn)); 
+
+create table deptlocations49n(dnumber number(10) not null,dlocation varchar(25) not null,foreign key(dnumber) references dept_49n(dnumber));
+
+create table project_49n(pname varchar(15) not null,pnumber number(10) primary key,plocation varchar(15),dnum number(10), foreign key (dnum) references dept_49n(dnumber));
+
+create table workson_49n(essn varchar(10) not null, pno number(10) not null, hours number(31),foreign key(essn) references employe49n(ssn),foreign key(pno) references project_49n(pnumber));
+
+create table dependent49n(essn varchar(10), dependname varchar(35),sex char(1),bdate date,relatinship varchar(25),foreign key(essn) references employe49n(ssn));
+
+
+insert into employe49n values('darshan','b','annandh','e01','09-jan-1965','731,frodren,houston,tx','m',20000,'e02',5);
+select * from employe49n;
+insert into employe49n values('mohan','t','ram','e02','08-dec-1955','638,loss,houston,tx','m',400000,'e08',5);
+insert into employe49n values('anisha','j','bhatt','e03','19-jan-1968','3321,castle,spring,tx','f',250000,'e04',4);
+insert into employe49n values('samantha','s','josh','e04','20-jun-1941','291,berry,bellrie,tx','f',430000,'e08',4);
+insert into employe49n values('ramesh','k','narayana''e05','15-sep-1962','975,fireoak,harble,tx','m',380000,'e02',5);
+insert into employe49n values('lisa','a','roy','e06','31-jul-1972','5631,rice,houston,tx','f',250000,'e02',5);
+insert into employe49n values('ahmed','v','jabbar','e07','29-mar-1996','980,doloss,houston,tx','m',250000,'e03',4);
+insert into employe49n values('jayanth','e','prasad','e08','10-nov-1937','450,houston,tx','m',55000,null,1);
+
+insert into dept_49n values('headquartor',1,'e06','19-jun-1981');
+select * from dept_49n;
+insert into dept_49n values('research',5,'e02','22-may-1988');
+insert into dept_49n values('administration',4,'e04','01-jan-1999');
+
+insert into deptlocation49n values(1,'houston');
+insert into deptlocation49n values(4,'stanfford');
+insert into deptlocation49n values(5,'bellrie');
+insert into deptlocation49n values(5,'houston');
+insert into deptlocation49n values(5,'sugarland');
+select * from deptlocation49n;
+
+insert into project_49n values('productx',1,'bellrie',5); 
+insert into project_49n values('producty',2,'sugarland',5); 
+insert into project_49n values('productz',3,'houston',5); 
+insert into project_49n values('computation',10,'stanfford',4); 
+insert into project_49n values('reorganization',20,'houston',1); 
+insert into project_49n values('newbenifits',30,'stanfoord',4);
+select * from project_49n;
+
+select * from workson_49n;
+insert into workson_49n values('e01',1,32.5);
+insert into workson_49n values('e01',2,7.5);
+insert into workson_49n values('e05',3,40.5);
+insert into workson_49n values('e06',1,20.0);
+insert into workson_49n values('e01',2,20.0);insert into workson_49n values('e02',3,10.0);
+insert into workson_49n values('e02',10,10.0);
+
+insert into workson_49n values('e02',2,10.0);
+insert into workson_49n values('e02',20,10.0);
+insert into workson49n values('e03',30,30.0);
+insert into workson49n values('e03',10,10.0);
+insert into workson49n values('e07',10,35.0);
+insert into workson49n values('e07',30,5.0);
+insert into workson49n values('e04',30,20.0);
+insert into workson49n values('e04',20,15.0);
+insert into workson49n values('e00',20,null);
+
+select * from dependent49n;
+insert into dependent49n values('e02','anika','f','05-apr-1986','daughter');
+insert into dependent49n values('e02','arjun','m','25-oct-1983','son');
+insert into dependent49n values('e02','joy','f','03-may-1958','spouse');
+insert into dependent49n values('e04','arun','m','28-feb-1942','spouse');
+insert into dependent49n values('e01','michael','m','04-jan-1988','son');
+insert into dependent49n values('e02','aruna','f','30-dec-1988','daughter');
+insert into dependent49n values('e01','elizabeth','f','05-may-1967','spouse');
+update employe49n set salary=50000 where ssn='e02';
+update employe49n set salary=20000 where ssn='e01';
+commit
+delete from employe49n;
+delete  from dept_location49n;
+rollback
+select * from deptlocations49n;
+alter table dependent49n modify(dependname varchar(30));
+desc dependent49n;
+rename employe49n to empdetails;
+desc empdetails;
+alter table deptlocations49n modify(dlocation varchar(35));
+desc deptlocations49n;
+select avg(salary) from empdetails;
+select max(salary) from empdetails;
+select min(salary) from empdetails;
+select sum(salary) from empdetails;
+select count(*) from empdetails;
+select  dno,count(*),avg(salary) from empdetails group by dno;
+select dname from dept_49n,empdetails where dnumber=dno and sex='f' group by dname having count(ssn)>=2;
+
+
+select dname,count(*) from dept49n,empdetaile where dnumber=dno and salary>20000 group by dname having count(*)>2; 
+select pnumber,pname,count(*)from project_49n,workson_49n where pnumber=pno group by pnumber,pname having count(*)>2;
+select pnumber,pname,count(*)from project_49n,workson_49n where pnumber=pno group by pnumber,pname having count(*)>2;
+create view workson_49n_view as select fname,lname,pname,hours from empdetails,project_49n,workson_49n where ssn=essn and pno=pnumber;
+select * from workson_49n_view
+
+
+
+
+
+
+
+
+
+
+
+
+
